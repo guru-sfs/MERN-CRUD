@@ -75,7 +75,7 @@ export const fetchUsers = async (setUsers, setTotal) => {
 
 export const deleteUser = async (email, fetchUsers) => {
   try {
-    await API.delete(`/${email}`);
+    await API.delete(`Users/${email}`);
     fetchUsers();
   } catch (err) {
     console.error(err);
