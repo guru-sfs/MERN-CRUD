@@ -1,8 +1,13 @@
 import axios from "axios";
+import { API_BASE_URL } from "./config";
+
+// const API=axios.create({
+//   baseURL:API_BASE_URL,
+// });
 
 export const handleSignin = async ({ Email, Pass }, navigate, setMessage) => {
   try {
-    const res = await axios.post("http://localhost:5000/Signin", {
+    const res = await axios.post(`${API_BASE_URL}/Signin`, {
       Email,
       Pass,
     });
@@ -24,7 +29,7 @@ export const handleSignup = async (
 ) => {
   try {
     const Name = firstname + lastname;
-    const res = await axios.post("http://localhost:5000/Signup", {
+    const res = await axios.post(`${API_BASE_URL}/Signup`, {
       Name,
       Email,
       Pass,
@@ -42,7 +47,7 @@ export const handleSignup = async (
 
 export const getUserByEmail = async (email, setUser) => {
   try {
-    const res = await axios.get(`http://localhost:5000/Users/${email}`);
+    const res = await axios.get(`${API_BASE_URL}/Users/${email}`);
     setUser(res.data.user);
   } catch (err) {
     console.error(err);
@@ -51,7 +56,7 @@ export const getUserByEmail = async (email, setUser) => {
 
 export const updateUser = async (email, userData, navigate) => {
   try {
-    await axios.put(`http://localhost:5000/Users/${email}`, userData);
+    await axios.put(`${API_BASE_URL}/Users/${email}`, userData);
     navigate("/Users");
   } catch (err) {
     console.error(err);
@@ -60,7 +65,7 @@ export const updateUser = async (email, userData, navigate) => {
 
 export const fetchUsers = async (setUsers, setTotal) => {
   try {
-    const res = await axios.get("http://localhost:5000/Users");
+    const res = await axios.get(`${API_BASE_URL}/Users`);
     setUsers(res.data.users);
     setTotal(res.data.users.length);
   } catch (err) {
@@ -70,7 +75,7 @@ export const fetchUsers = async (setUsers, setTotal) => {
 
 export const deleteUser = async (email, fetchUsers) => {
   try {
-    await axios.delete(`http://localhost:5000/Users/${email}`);
+    await axios.delete(`${API_BASE_URL}/${email}`);
     fetchUsers();
   } catch (err) {
     console.error(err);
