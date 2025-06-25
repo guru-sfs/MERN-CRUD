@@ -1,13 +1,13 @@
 import axios from "axios";
 import { API_BASE_URL } from "./config";
 
-// const API=axios.create({
-//   baseURL:API_BASE_URL,
-// });
+const API=axios.create({
+  baseURL:API_BASE_URL,
+});
 
 export const handleSignin = async ({ Email, Pass }, navigate, setMessage) => {
   try {
-    const res = await axios.post(`${API_BASE_URL}/Signin`, {
+    const res = await API.post(`/Signin`, {
       Email,
       Pass,
     });
@@ -29,7 +29,7 @@ export const handleSignup = async (
 ) => {
   try {
     const Name = firstname + lastname;
-    const res = await axios.post(`${API_BASE_URL}/Signup`, {
+    const res = await API.post(`/Signup`, {
       Name,
       Email,
       Pass,
@@ -47,7 +47,7 @@ export const handleSignup = async (
 
 export const getUserByEmail = async (email, setUser) => {
   try {
-    const res = await axios.get(`${API_BASE_URL}/Users/${email}`);
+    const res = await API.get(`/Users/${email}`);
     setUser(res.data.user);
   } catch (err) {
     console.error(err);
@@ -56,7 +56,7 @@ export const getUserByEmail = async (email, setUser) => {
 
 export const updateUser = async (email, userData, navigate) => {
   try {
-    await axios.put(`${API_BASE_URL}/Users/${email}`, userData);
+    await API.put(`/Users/${email}`, userData);
     navigate("/Users");
   } catch (err) {
     console.error(err);
@@ -65,7 +65,7 @@ export const updateUser = async (email, userData, navigate) => {
 
 export const fetchUsers = async (setUsers, setTotal) => {
   try {
-    const res = await axios.get(`${API_BASE_URL}/Users`);
+    const res = await API.get(`/Users`);
     setUsers(res.data.users);
     setTotal(res.data.users.length);
   } catch (err) {
@@ -75,7 +75,7 @@ export const fetchUsers = async (setUsers, setTotal) => {
 
 export const deleteUser = async (email, fetchUsers) => {
   try {
-    await axios.delete(`${API_BASE_URL}/${email}`);
+    await API.delete(`/${email}`);
     fetchUsers();
   } catch (err) {
     console.error(err);
