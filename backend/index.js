@@ -6,8 +6,9 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 const PORT=process.env.PORT||5000;
+const MONGO_URL="mongodb+srv://gurudatthag:Since%402003@cluster0.vt7sy2r.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+mongoose.connect(MONGO_URL);
 
-mongoose.connect("mongodb://localhost:27017/Users");
 const user_schema = new mongoose.Schema({
   Name: String,
   Email: String,
